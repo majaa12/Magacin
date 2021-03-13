@@ -11,14 +11,15 @@ public class Magacin implements MagacinInterface {
 
 	@Override
 	public void dodajArtikal(Artikal artikal) {
+
 		if (!artikli.contains(artikal) && artikal != null) {
 			artikli.add(artikal);
+		} else {
+			for (Artikal a : artikli) {
+				if (a.equals(artikal))
+					a.setKolicina(a.getKolicina() + artikal.getKolicina());
+			}
 		}
-		for (Artikal a : artikli) {
-			if (a.equals(artikal))
-				a.setKolicina(a.getKolicina() + artikal.getKolicina());
-		}
-
 	}
 
 	@Override
@@ -38,10 +39,12 @@ public class Magacin implements MagacinInterface {
 
 	@Override
 	public Artikal vratiArtikal(int sifra) {
-		for (Artikal a : artikli) {
-			if (a.getSifra() == sifra)
+
+		for(Artikal a: artikli) {
+			if(a.getSifra() == sifra)
 				return a;
 		}
+		System.out.println("Ne postoji taj artikal u magacinu!");
 		return null;
 	}
 
